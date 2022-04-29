@@ -8,7 +8,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import React, { useState, useEffect,useRef }  from 'react'
 import SignatureScreen from "react-native-signature-canvas";
 
-
+import {letters} from '../database/letter_tracing';
 
 
 const ABC = ({navigation}) => {
@@ -16,7 +16,7 @@ const ABC = ({navigation}) => {
 
   const [bg, setBg] = useState('white');
   const [iconColor, setIconColor] = useState('black');
-  const [box_value_change, setCol] = useState('');
+  const [box_value_change, setCol] = useState('letter_colored');
 // Called after ref.current.readSignature() reads a non-empty base64 string
 const handleOK = (signature) => {
   console.log(signature);
@@ -44,27 +44,9 @@ const handleData = (data) => {
 };
 
   const imgWidth = 300;
-const imgHeight = 300;
+  const imgHeight = 300;
 
-
-  const onPress = () =>{
-  if(bg == 'white'){
-      setBg('#EE2D7B');
-      setIconColor('white');
-      setCol({
-        color: '#fff',
-        textShadowColor: 'black', 
-        textShadowRadius: 5, 
-        textShadowOffset: {width: 1, height: 1},
-        top: 0, left: 0, right: 0, bottom: 0
-      });
-    }else{
-      setBg('white');
-      setIconColor('black');
-      setCol('');
-    }
-    
-  }
+ 
 
   const [bg2, setBg2] = useState('white');
   const [iconColor2, setIconColor2] = useState('black');
@@ -117,6 +99,67 @@ const imgHeight = 300;
 
   const {width}= useWindowDimensions();
 
+  const [number, setNumber] = useState(0);
+
+  const numLimit = letters.length-1; 
+
+  const [changed, setChange] = useState(
+    ()=>{
+      setBoxContent('none');
+      setShowLetter('flex');
+      setButtonText('Word Card')
+      setShowTitle(0);
+    }
+  )
+
+  const [letter_image, setLetterImage] = useState(
+    letters[number].letter_colored
+  )
+  const onPress = () =>{
+  if(bg == 'white'){
+      setBg('#EE2D7B');
+      setIconColor('white');
+      
+      setLetterImage(letters[number].letter_trace)
+    }else{
+      setBg('white');
+      setIconColor('black');
+      setLetterImage(letters[number].letter_colored)
+    }
+    
+  }
+
+  const nextNum = () => {
+    if(number < numLimit){
+      setNumber(number+1);
+      setLetterImage(letters[number+1].letter_colored)
+        
+    }else{
+      navigation.navigate('Home')
+    }
+      setBoxContent('none');
+      setShowLetter('flex');
+      setButtonText('Word Card')
+      setShowTitle(0);
+  }
+  const prevNum = () => {
+    if(number >0 ){ 
+      setNumber(number-1);
+      setLetterImage(letters[number-1].letter_colored)
+      changed
+    }else{
+      navigation.navigate('Home')
+    }
+
+    setBoxContent('none');
+    setShowLetter('flex');
+    setButtonText('Word Card')
+    setShowTitle(0);
+    
+  }
+ 
+  
+
   
   return (
     <View style={[styles.container,{width}]}>
@@ -154,15 +197,16 @@ const imgHeight = 300;
 
         </View>
         <View style={styles.center_box}>
-            {/* <Text style={[styles.box_title,{opacity:showtitle}]}>Apple</Text>
+            <Text style={[styles.box_title,{opacity:showtitle}]}>{letters[number].letter_name}</Text>
             <View style={styles.box_content}>
-              <Text style={[styles.box_value,{display:showletter},box_value_change ]}>Aa</Text>
-              <Image source={require('../assets/images/abc/Apple.png')} style={[styles.box_value_img,{display:imgshow}]}/>
-            </View> */}
+              {/* <Text style={[styles.box_value,{display:showletter},box_value_change ]}>Aa</Text> */}
+              <Image source={letter_image} style={[styles.box_value_img,{display:showletter},box_value_change]}/>
+              <Image source={letters[number].image} style={[styles.box_value_img,{display:imgshow}]}/>
+            </View>
        
      
         </View>
-        <View style={{width: '100%', height: '100%'}}>
+        {/* <View style={{width: '100%', height: '100%'}}>
         <SignatureScreen
                 ref={ref}
                 bgSrc={require('../assets/images/abc/Abig.png')}
@@ -171,18 +215,18 @@ const imgHeight = 300;
                 overlayHeight={imgHeight}
                 onOK={handleOK}
               />
-        </View>
+        </View> */}
    
         <View style={styles.bottom_buttons}>
-           <TouchableOpacity onPress={() => navigation.navigate('Home')} activeOpacity={0.7}>
+           <TouchableOpacity onPress={() => prevNum() } activeOpacity={0.7}>
               <Entypo name='chevron-left' style={styles.bottom_arr_icon}/>
             </TouchableOpacity> 
             <TouchableOpacity onPress={Change} style={styles.bottom_btn} activeOpacity={0.7}>
-              <Text style={styles.small_text}>A</Text>
-              <Image source={require('../assets/images/abc/Apple.png')} style={styles.small_img}/>
+              <Text style={styles.small_text}>{letters[number].letter}</Text>
+              <Image source={letters[number].image} style={styles.small_img}/>
               <Text style={styles.bottom_btn_text}>{buttontext}</Text>
             </TouchableOpacity> 
-            <TouchableOpacity  activeOpacity={0.7}>
+            <TouchableOpacity  activeOpacity={0.7} onPress={() => nextNum()} >
               <Entypo name='chevron-right' style={styles.bottom_arr_icon}/>
             </TouchableOpacity> 
         </View>

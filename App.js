@@ -126,7 +126,7 @@ export default function App() {
            gestureDirection: 'horizontal',
            
         }}
-        initialRouteName="Welcome"
+        initialRouteName="ABC"
         
         >
         <Stack.Screen name="Welcome" component={Welcome} />

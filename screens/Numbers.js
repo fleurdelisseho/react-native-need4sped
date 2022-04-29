@@ -7,7 +7,7 @@ import {styles} from '../assets/styles/Styles'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import React, { useState, useEffect }  from 'react'
 
-
+import {numbers} from '../database/number';
 
 
 
@@ -70,6 +70,19 @@ const Numbers = ({navigation}) => {
   const [buttontext, setButtonText] =useState('Word Card');
   const [showtitle, setShowTitle] = useState(0);
   
+  const [number, setNumber] = useState(0);
+
+  const numLimit = numbers.length-1; 
+
+  const [changed, setChange] = useState(
+    ()=>{
+      setBoxContent('none');
+      setShowLetter('flex');
+      setButtonText('Word Card')
+      setShowTitle(0);
+    }
+  )
+
 
 
   const Change = () =>{
@@ -85,6 +98,35 @@ const Numbers = ({navigation}) => {
       setShowTitle(0);
     }
   }
+
+  const nextNum = () => {
+    if(number < numLimit){
+      setNumber(number+1);
+        
+    }else{
+      navigation.navigate('Home')
+    }
+      setBoxContent('none');
+      setShowLetter('flex');
+      setButtonText('Word Card')
+      setShowTitle(0);
+  }
+  const prevNum = () => {
+    if(number >0 ){ 
+      setNumber(number-1);
+      changed
+    }else{
+      navigation.navigate('Home')
+    }
+
+    setBoxContent('none');
+    setShowLetter('flex');
+    setButtonText('Word Card')
+    setShowTitle(0);
+    
+  }
+ 
+
 
 
   const {width}= useWindowDimensions();
@@ -120,20 +162,20 @@ const Numbers = ({navigation}) => {
 
         </View>
         <View style={styles.center_box}>
-            <Text style={[styles.box_title,{opacity:showtitle}]}>One</Text>
+            <Text style={[styles.box_title,{opacity:showtitle}]}>{numbers[number].num_letter}</Text>
             <View style={styles.box_content}>
-              <Text style={[styles.box_value,{display:showletter},box_value_change ]}>1</Text>
-              <Image source={require('../assets/images/numbers/1.png')} style={[styles.box_value_img,{display:imgshow}]}/>
+              <Text style={[styles.box_value,{display:showletter},box_value_change ]}>{numbers[number].num}</Text>
+              <Image source={numbers[number].image} style={[styles.box_value_img,{display:imgshow}]}/>
             </View>
         </View>
         <View style={styles.bottom_buttons}>
-           <TouchableOpacity onPress={() => navigation.navigate('Home')} activeOpacity={0.7}>
+           <TouchableOpacity onPress={() => prevNum() } activeOpacity={0.7}>
               <Entypo name='chevron-left' style={styles.bottom_arr_icon}/>
             </TouchableOpacity> 
             <TouchableOpacity onPress={Change} style={styles.bottom_btn} activeOpacity={0.7}>
               <Text style={styles.bottom_btn_text}>{buttontext}</Text>
             </TouchableOpacity> 
-            <TouchableOpacity onPress={() => navigation.navigate('Home')} activeOpacity={0.7}>
+            <TouchableOpacity onPress={() => nextNum()} activeOpacity={0.7}>
               <Entypo name='chevron-right' style={styles.bottom_arr_icon}/>
             </TouchableOpacity> 
         </View>
