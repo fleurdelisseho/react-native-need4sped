@@ -6,7 +6,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import {styles} from '../assets/styles/Styles'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import React, { useState, useEffect }  from 'react'
-
+import {counting_objects} from '../database/counting_objects';
 
 
 
@@ -65,31 +65,88 @@ const CountingObjects = ({navigation}) => {
     
   }
 
-  const [imgshow, setBoxContent] = useState('none');
-  const [showletter, setShowLetter] =useState('flex');
-  const [buttontext, setButtonText] =useState('Word Card');
-  const [showtitle, setShowTitle] = useState(0);
-  
-
-
-  const Change = () =>{
-    if(imgshow == 'none'){
-      setBoxContent('flex');
-      setShowLetter('none');
-      setButtonText('Number Card')
-      setShowTitle(1);
-    }else{
-      setBoxContent('none');
-      setShowLetter('flex');
-      setButtonText('Word Card')
-      setShowTitle(0);
-    }
-  }
-
 
   const {width}= useWindowDimensions();
 
-  
+  const [itemNo, setItemNo] = useState(0)
+  const [question, setQuestion] = useState(counting_objects[itemNo].question_number);
+  const [choice1, setChoice1] = useState(counting_objects[itemNo].choice1);
+  const [choice2, setChoice2] = useState(counting_objects[itemNo].choice2);
+  const [choice3, setChoice3] = useState(counting_objects[itemNo].choice3);
+  const [choice4, setChoice4] = useState(counting_objects[itemNo].choice4);
+  const [choice5, setChoice5] = useState(counting_objects[itemNo].choice5);
+  const [choice6, setChoice6] = useState(counting_objects[itemNo].choice6);
+
+  const [answer, setAnswer] = useState(counting_objects[itemNo].answer);
+
+  const [chooseAnswer, setChooseAnswer] =  useState('');
+
+  const [isCorrect,setIsCorrect] = useState(null);
+
+  const [btnText, setBtnText] = useState('Submit');
+ 
+  const [backColor, setBackColor] = useState('E8545C');          
+  const numLimit = counting_objects.length-1;
+  const nextItem = () => {
+      const num = itemNo + 1
+      setItemNo(num)
+      setChoice1(counting_objects[num].choice1);
+      setChoice2(counting_objects[num].choice2);
+      setChoice3(counting_objects[num].choice3);
+      setChoice4(counting_objects[num].choice4);
+      setChoice5(counting_objects[num].choice5);
+      setChoice6(counting_objects[num].choice6);
+      setAnswer(counting_objects[num].answer);
+
+      setQuestion(counting_objects[num].question_number)
+    
+  }
+
+  const actionButton = () => {
+
+    if(btnText == 'Submit'){
+      if(chooseAnswer == answer){
+        setIsCorrect(true);
+        
+        setBackColor('E8545C');
+
+        if(itemNo < numLimit){
+          setBtnText('Next')
+        }else{
+          setBtnText('Finish')
+        }
+      }else{
+        setIsCorrect(false);
+        setBtnText('Go Back');
+        setBackColor('F19336');
+        
+      }
+    }else if(btnText == 'Finish'){
+      navigation.navigate('Complete3')
+    }else if(btnText == 'Next'){
+      setBtnText('Submit')
+      setChooseAnswer('');
+      nextItem()
+      setIsCorrect(null);
+      setBackColor('E8545C');
+    }else{
+        setIsCorrect(null);
+        setChooseAnswer('');
+        setBtnText('Submit')
+        setBackColor('E8545C');
+    }
+  }
+
+  const chosen = (
+    <LinearGradient
+      style={{width:'100%',position:'absolute',zIndex:-1,height:'100%',transform:[{scale:1.7},{rotate:'-45deg'}]}}  
+      colors={['#22E5E6', '#B38DE4']}
+    />  
+  )
+
+
+
+
   return (
     <View style={[styles.container,{width}]}>
       <StatusBar  backgroundColor={'transparent'} translucent={true}  />
@@ -112,7 +169,7 @@ const CountingObjects = ({navigation}) => {
               color: 'white',
             }}/>
           </TouchableOpacity>
-          <Text style={{color: 'white', fontFamily: 'mon_bold'}}>1/26</Text>
+          <Text style={{color: 'white', fontFamily: 'mon_bold'}}>{itemNo+1}/{numLimit+1}</Text>
           <View style={styles.right_navbtns}>
             <TouchableOpacity   onPress={onPress3} activeOpacity={0.7}  style={[styles.navbtn,{backgroundColor:bg3}]}>
               <Image source={require('../assets/images/sound.png')} style={[styles.btnicon, { resizeMode: 'contain', tintColor:iconColor3}]}/>
@@ -121,45 +178,65 @@ const CountingObjects = ({navigation}) => {
 
         </View>
         <View style={styles.center_box}>
-            <Text style={[styles.box_title,{color:'#F19336', fontSize:18, opacity:0 }]}>Awesome!</Text>
-            <Text style={[styles.box_title,{color:'#000', fontFamily:'mon_semibold', fontSize:12, top:55, opacity:0 }]}>Proceed to the next letter.</Text>
+        {
+             isCorrect &&
+             <>
+              <Text style={[styles.box_title,{color:'#F19336', fontSize:18 }]}>Awesome!</Text>
+              <Text style={[styles.box_title,{color:'#000', fontFamily:'mon_semibold', fontSize:12, top:55}]}>Proceed to the next number.</Text>
+            </>
+            }
+              {
+             isCorrect === false &&
+             <>
+              <Text style={[styles.box_title,{color:'#F19336', fontSize:18 }]}>Oops!</Text>
+              <Text style={[styles.box_title,{color:'#000', fontFamily:'mon_semibold', fontSize:12, top:55}]}>Can you try that again?</Text>
+            </>
+            }
             <View style={styles.box_content}>
               {/* if correct */}
-              {/* <Image source={require('../assets/images/abc/correct.png')} style={[styles.box_value_img,{width:'80%',marginTop:40}]}/> */}
+              {isCorrect && <Image source={require('../assets/images/abc/correct.png')} style={[styles.box_value_img,{width:'80%',marginTop:40}]}/>}
               {/* if wrong */}
-              {/* <Image source={require('../assets/images/abc/wrong.png')} style={[styles.box_value_img,{width:'80%',marginTop:40}]}/> */}
+              { isCorrect === false && <Image source={require('../assets/images/abc/wrong.png')} style={[styles.box_value_img,{width:'80%',marginTop:40}]}/>}
 
-              <Image source={require('../assets/images/numbers/5objects.png')} style={[styles.box_value_img,{width:'70%', marginTop:0}]}/>
+              { isCorrect === null && <Image source={question} style={[styles.box_value_img,{width:'70%', marginTop:0}]}/> }
             </View>
         </View>
+        {/* CHOISES */}
         <View style={styles.choices}>
-          <TouchableOpacity   activeOpacity={0.7}  style={[styles.btnchoice,{overflow: 'hidden'}]}>
-            <LinearGradient
-                style={{width:'100%',position:'absolute',zIndex:-1,height:'100%',transform:[{scale:1.7},{rotate:'-45deg'}]}}  
-                colors={['#22E5E6', '#B38DE4']}
-              />  
-            <Image source={require('../assets/images/numbers/2.png')} style={[styles.choice_img]}/>
-            
+          <TouchableOpacity onPress={()=>setChooseAnswer('1')}  activeOpacity={0.7}  style={[styles.btnchoice,{overflow: 'hidden'}]}>
+            {chooseAnswer === '1' && chosen}
+            <Image source={choice1} style={[styles.choice_img]}/>
           </TouchableOpacity>
-          <TouchableOpacity   activeOpacity={0.7}  style={[styles.btnchoice]}>
-            <Image source={require('../assets/images/numbers/3.png')} style={[styles.choice_img]}/>
+
+          <TouchableOpacity onPress={()=>setChooseAnswer('2')}  activeOpacity={0.7}  style={[styles.btnchoice,{overflow: 'hidden'}]}>
+            {chooseAnswer === '2' && chosen}
+            <Image  source={choice2} style={[styles.choice_img]}/>
           </TouchableOpacity>
-          <TouchableOpacity   activeOpacity={0.7}  style={[styles.btnchoice]}>
-            <Image source={require('../assets/images/numbers/num1.png')} style={[styles.choice_img]}/>
+
+          <TouchableOpacity onPress={()=>setChooseAnswer('3')}  activeOpacity={0.7}  style={[styles.btnchoice,{overflow: 'hidden'}]}>
+            {chooseAnswer === '3' && chosen}
+            <Image  source={choice3} style={[styles.choice_img]}/>
           </TouchableOpacity>
-          <TouchableOpacity   activeOpacity={0.7}  style={[styles.btnchoice]}>
-            <Image source={require('../assets/images/numbers/5.png')} style={[styles.choice_img]}/>
+
+          <TouchableOpacity onPress={()=>setChooseAnswer('4')}  activeOpacity={0.7}  style={[styles.btnchoice,{overflow: 'hidden'}]}>
+            {chooseAnswer === '4' && chosen}
+            <Image  source={choice4} style={[styles.choice_img]}/>
           </TouchableOpacity>
-          <TouchableOpacity   activeOpacity={0.7}  style={[styles.btnchoice]}>
-            <Image source={require('../assets/images/numbers/6.png')} style={[styles.choice_img]}/>
+
+          <TouchableOpacity onPress={()=>setChooseAnswer('5')}  activeOpacity={0.7}  style={[styles.btnchoice,{overflow: 'hidden'}]}>
+            {chooseAnswer === '5' && chosen}
+            <Image  source={choice5} style={[styles.choice_img]}/>
           </TouchableOpacity>
-          <TouchableOpacity   activeOpacity={0.7}  style={[styles.btnchoice]}>
-            <Image source={require('../assets/images/numbers/4.png')} style={[styles.choice_img]}/>
+
+          <TouchableOpacity onPress={()=>setChooseAnswer('6')}  activeOpacity={0.7}  style={[styles.btnchoice,{overflow: 'hidden'}]}>
+            {chooseAnswer === '6' && chosen}
+            <Image  source={choice6} style={[styles.choice_img]}/>
           </TouchableOpacity>
+
         </View>
         <View style={styles.bottom_buttons_full}>
-            <TouchableOpacity  onPress={() => navigation.navigate('Complete3')} style={[styles.bottom_btn,styles.bottom_btn_full]} activeOpacity={0.7}>
-              <Text style={styles.bottom_btn_text}>Submit</Text>
+            <TouchableOpacity  onPress={() => actionButton()} style={[styles.bottom_btn,styles.bottom_btn_full,{backgroundColor:'#'+backColor}]} activeOpacity={0.7}>
+              <Text style={styles.bottom_btn_text}>{btnText}</Text>
             </TouchableOpacity> 
         </View>
       </View>

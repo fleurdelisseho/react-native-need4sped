@@ -8,6 +8,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import React, { useState, useEffect, useRef}  from 'react'
 import {letter_recognition} from '../database/letter_recognition';
 import SignatureScreen from "react-native-signature-canvas";
+import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 const LetterRecognition = ({navigation,text}) => {
   const ref = useRef();
@@ -115,21 +116,61 @@ const style = `.m-signature-pad {box-shadow: none; border: none; }
 
   const [isCorrect,setIsCorrect] = useState(null);
 
+  const [btnText, setBtnText] = useState('Submit');
  
-
+  const [backColor, setBackColor] = useState('E8545C');          
+  const numLimit = letter_recognition.length-1;
   const nextItem = () => {
-    console.log(letter_recognition)
-    const num = itemNo + 1
-    setItemNo(num)
-    setChoice1(letter_recognition[num].choice1);
-    setChoice2(letter_recognition[num].choice2);
-    setChoice3(letter_recognition[num].choice3);
-    setChoice4(letter_recognition[num].choice4);
-    setChoice5(letter_recognition[num].choice5);
-    setChoice6(letter_recognition[num].choice6);
-    setAnswer(letter_recognition[num].answer);
+      const num = itemNo + 1
+      setItemNo(num)
+      setChoice1(letter_recognition[num].choice1);
+      setChoice2(letter_recognition[num].choice2);
+      setChoice3(letter_recognition[num].choice3);
+      setChoice4(letter_recognition[num].choice4);
+      setChoice5(letter_recognition[num].choice5);
+      setChoice6(letter_recognition[num].choice6);
+      setAnswer(letter_recognition[num].answer);
+
+      setQuestion(letter_recognition[num].question_letter)
+    
   }
 
+  const actionButton = () => {
+
+    if(btnText == 'Submit'){
+      if(chooseAnswer == answer){
+        setIsCorrect(true);
+        
+        setBackColor('E8545C');
+
+        if(itemNo < numLimit){
+          setBtnText('Next')
+        }else{
+          setBtnText('Finish')
+        }
+      }else{
+        setIsCorrect(false);
+        setBtnText('Go Back');
+        setBackColor('F19336');
+        
+      }
+    }else if(btnText == 'Finish'){
+      navigation.navigate('Complete1')
+    }else if(btnText == 'Next'){
+      setBtnText('Submit')
+      setChooseAnswer('');
+      nextItem()
+      setIsCorrect(null);
+      setBackColor('E8545C');
+    }else{
+        setIsCorrect(null);
+        setChooseAnswer('');
+        setBtnText('Submit')
+        setBackColor('E8545C');
+    }
+  }
+
+  
   
 
 
@@ -185,7 +226,7 @@ const style = `.m-signature-pad {box-shadow: none; border: none; }
               {/* if wrong */}
              { isCorrect === false && <Image source={require('../assets/images/abc/wrong.png')} style={[styles.box_value_img,{width:'80%',marginTop:40}]}/> }
 
-             { isCorrect === null && <Image source={require('../assets/images/abc/Abig.png')} style={[styles.box_value_img,{width:'95%', marginTop:0}]}/>}
+             { isCorrect === null && <Image source={question} style={[styles.box_value_img,{width:'95%', marginTop:0}]}/>}
             </View>
         </View>
         <View style={styles.choices}>
@@ -287,11 +328,8 @@ const style = `.m-signature-pad {box-shadow: none; border: none; }
 
         </View>
         <View style={styles.bottom_buttons_full}>
-           <TouchableOpacity onPress={() => console.log(6 == chooseAnswer)} style={[styles.bottom_btn,styles.bottom_btn_full]} activeOpacity={0.7}>
-              <Text style={styles.bottom_btn_text}>Submit</Text>
-            </TouchableOpacity> 
-            <TouchableOpacity onPress={() => nextItem()} style={[styles.bottom_btn,styles.bottom_btn_full]} activeOpacity={0.7}>
-              <Text style={styles.bottom_btn_text}>Submit</Text>
+            <TouchableOpacity onPress={() => actionButton()} style={[styles.bottom_btn,styles.bottom_btn_full,{backgroundColor:'#'+backColor}]} activeOpacity={0.7}>
+              <Text style={styles.bottom_btn_text}>{btnText}</Text>
             </TouchableOpacity> 
         </View>
       </View>

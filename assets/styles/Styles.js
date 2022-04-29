@@ -411,7 +411,7 @@ export const styles = StyleSheet.create({
 
     box_value_img: {
       resizeMode: 'contain',
-      width: '95%',
+      width: '90%',
       marginTop: 15,
     },
     bottom_buttons: {
