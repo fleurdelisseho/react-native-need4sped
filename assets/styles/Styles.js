@@ -372,7 +372,7 @@ export const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: colors.white,
-      width: '90%',
+      width: '85%',
       alignContent:'center',
       height: 300,
       borderRadius: 20,
@@ -383,6 +383,24 @@ export const styles = StyleSheet.create({
         textShadowRadius: 10,
         elevation: 6,
         marginTop:20,
+        marginBottom:20,
+    },
+    center_box_exercises: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: colors.white,
+      width: '80%',
+      alignContent:'center',
+      height: 200,
+      borderRadius: 20,
+      position:'relative',
+      shadowColor: '#000',
+        shadowOffset: { width: -5, height: 2 },
+        shadowOpacity:  10,
+        textShadowRadius: 10,
+        elevation: 6,
+        marginBottom:-10,
+        marginTop:-20
     },
     box_title:{
       position: 'absolute',
@@ -393,7 +411,15 @@ export const styles = StyleSheet.create({
     },
     box_content: {
       // backgroundColor: 'grey',
-      width:'80%',
+      width:'100%',
+      justifyContent:'center',
+      alignItems: 'center',
+      height: 180,
+      padding: 20,
+    },
+    box_content_exer: {
+      // backgroundColor: 'grey',
+      width:'100%',
       justifyContent:'center',
       alignItems: 'center',
       height: 180,
@@ -403,7 +429,7 @@ export const styles = StyleSheet.create({
       fontSize: 144,
       fontFamily: 'mon_black',
       letterSpacing:10,
-      marginTop: -20,
+      marginTop: 0,
 
       //default 
       color: '#383660',
@@ -445,6 +471,19 @@ export const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'space-between',
       width: '80%',
+      marginTop:0
+    },
+    bottom_buttons_full_random:{
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '100%',
+      marginTop:15
+    },
+    bottom_buttons_full_letterRecognition:{
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '80%',
+      marginTop:-5
     },
     bottom_btn:{
       backgroundColor:'#383660',
@@ -459,6 +498,12 @@ export const styles = StyleSheet.create({
       paddingVertical: 15,
       borderRadius:15,
       position: 'relative',
+    },
+    bottom_btn__full_letterRecognition:{
+      width: '100%',
+      backgroundColor: '#E8545C',
+      paddingVertical:18,
+      marginBottom:30
     },
     bottom_btn_full:{
       width: '100%',
@@ -507,11 +552,11 @@ export const styles = StyleSheet.create({
       backgroundColor: 'white',
       borderRadius: 20,
       padding:10,
-      width: '30%',
+      width: '31%',
       height: 70,
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop:15,
+      marginTop:10,
     },
     choice_img:{
       width:47,
@@ -519,7 +564,6 @@ export const styles = StyleSheet.create({
       
     },
     //Object Recognition Design
-
     object_title: {
       backgroundColor: '#383660',
       width: '60%',
@@ -527,7 +571,7 @@ export const styles = StyleSheet.create({
       justifyContent:'center',
       alignItems:'center',
       borderRadius:15,
-      marginBottom: 15,
+      marginBottom: 5,
     },
     object_text:{
       color:'white',

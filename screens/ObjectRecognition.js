@@ -1,11 +1,8 @@
-import { View, Text, useWindowDimensions, StatusBar,StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { View, Text, useWindowDimensions, StatusBar,TouchableOpacity, Image } from 'react-native'
 
-import  colors  from '../assets/styles/Styles'
-import { LinearGradient } from 'expo-linear-gradient';
-import Entypo from 'react-native-vector-icons/Entypo';
 import {styles} from '../assets/styles/Styles'
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import React, { useState, useEffect }  from 'react'
+import React, { useState }  from 'react'
 import {object_questions} from '../database/objects';
 
 const ObjectRecognition = ({navigation}) => {
@@ -15,7 +12,6 @@ const ObjectRecognition = ({navigation}) => {
   const [box_value_change, setCol] = useState('');
 
 
-  
   const onPress = () =>{
   if(bg == 'white'){
       setBg('#EE2D7B');
@@ -208,7 +204,7 @@ const ObjectRecognition = ({navigation}) => {
           
          
         </View>
-        <View style={[styles.bottom_buttons_full, {height: 80}]}>
+        <View style={[styles.bottom_buttons_full_random, {height: 80}]}>
           {
             btn_action !== null &&
               <TouchableOpacity  onPress={() => {clickedBtn(next)}}

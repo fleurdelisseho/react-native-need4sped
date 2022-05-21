@@ -19,6 +19,7 @@ import Numbers from './screens/Numbers';
 import LetterRecognition from './screens/LetterRecognition';
 import ObjectRecognition from './screens/ObjectRecognition';
 import CountingObjects from './screens/CountingObjects';
+import RandomQuiz from './screens/RandomQuiz';
 import Account from './screens/Account';
 import EditAccount from './screens/EditAccount';
 import Complete1 from './screens/Complete1';
@@ -27,7 +28,7 @@ import Complete3 from './screens/Complete3';
 import Lesson1 from './screens/Lesson1';
 import Lesson2 from './screens/Lesson2';
 import Lesson3 from './screens/Lesson3';
-
+import Lesson4 from './screens/Lesson3';
 
 
 const fetchFonts = () => {
@@ -140,6 +141,7 @@ export default function App() {
         <Stack.Screen name="LetterRecognition" component={LetterRecognition} />
         <Stack.Screen name="ObjectRecognition" component={ObjectRecognition} />
         <Stack.Screen name="CountingObjects" component={CountingObjects} />
+        <Stack.Screen name="RandomQuiz" component={RandomQuiz} />
         <Stack.Screen name="Account" component={Account} />
         <Stack.Screen name="EditAccount" component={EditAccount} />
         <Stack.Screen name="Complete1" component={Complete1} />
@@ -148,7 +150,7 @@ export default function App() {
         <Stack.Screen name="Lesson1" component={Lesson1} />
         <Stack.Screen name="Lesson2" component={Lesson2} />
         <Stack.Screen name="Lesson3" component={Lesson3} />
-        
+        <Stack.Screen name="Lesson4" component={Lesson3} />
         
         
         

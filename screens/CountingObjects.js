@@ -177,7 +177,7 @@ const CountingObjects = ({navigation}) => {
           </View>
 
         </View>
-        <View style={styles.center_box}>
+        <View style={styles.center_box_exercises}>
         {
              isCorrect &&
              <>
@@ -194,9 +194,9 @@ const CountingObjects = ({navigation}) => {
             }
             <View style={styles.box_content}>
               {/* if correct */}
-              {isCorrect && <Image source={require('../assets/images/abc/correct.png')} style={[styles.box_value_img,{width:'80%',marginTop:40}]}/>}
+              {isCorrect && <Image source={require('../assets/images/abc/correct.png')} style={[styles.box_value_img,{width:'50%',marginTop:50}]}/>}
               {/* if wrong */}
-              { isCorrect === false && <Image source={require('../assets/images/abc/wrong.png')} style={[styles.box_value_img,{width:'80%',marginTop:40}]}/>}
+              { isCorrect === false && <Image source={require('../assets/images/abc/wrong.png')} style={[styles.box_value_img,{width:'50%',marginTop:50}]}/>}
 
               { isCorrect === null && <Image source={question} style={[styles.box_value_img,{width:'70%', marginTop:0}]}/> }
             </View>

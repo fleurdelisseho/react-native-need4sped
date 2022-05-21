@@ -1,23 +1,16 @@
-import { View, Text, useWindowDimensions, StatusBar,StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { View, Text, useWindowDimensions, StatusBar,TouchableOpacity, Image } from 'react-native'
 
-import  colors  from '../assets/styles/Styles'
-import { LinearGradient } from 'expo-linear-gradient';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {styles} from '../assets/styles/Styles'
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import React, { useState, useEffect }  from 'react'
-import {object_questions} from '../database/objects';
-
-
-
+import React, { useState }  from 'react'
+import {random_questions} from '../database/random';
 
 const RandomQuiz = ({navigation}) => {
 
   const [bg, setBg] = useState('white');
   const [iconColor, setIconColor] = useState('black');
   const [box_value_change, setCol] = useState('');
-
-
   
   const onPress = () =>{
   if(bg == 'white'){
@@ -90,18 +83,18 @@ const RandomQuiz = ({navigation}) => {
 
   const [itemNo, setItemNo] = useState(0)
 
-  const [question, setQuestion] = useState(object_questions[itemNo].question_object);
-  const [choice1, setChoice1] = useState(object_questions[itemNo].choice1);
-  const [choice2, setChoice2] = useState(object_questions[itemNo].choice2);
-  const [choice3, setChoice3] = useState(object_questions[itemNo].choice3);
-  const [choice4, setChoice4] = useState(object_questions[itemNo].choice4);
+  const [question, setQuestion] = useState(random_questions[itemNo].question_object);
+  const [choice1, setChoice1] = useState(random_questions[itemNo].choice1);
+  const [choice2, setChoice2] = useState(random_questions[itemNo].choice2);
+  const [choice3, setChoice3] = useState(random_questions[itemNo].choice3);
+  const [choice4, setChoice4] = useState(random_questions[itemNo].choice4);
 
-  const [answer, setAnswer] = useState(object_questions[itemNo].answer);
+  const [answer, setAnswer] = useState(random_questions[itemNo].answer);
   const [chooseAnswer, setChooseAnswer] =  useState('');
   const [isCorrect,setIsCorrect] = useState(null);
   const [btnText, setBtnText] = useState('Good!');
   const [btn_action, setBtnAction] = useState(null);
-  const numLimit = object_questions.length-1;
+  const numLimit = random_questions.length-1;
   const [next, setNext] = useState(false);
 
   const [rightAns, setRightAns] = useState('');
@@ -110,12 +103,12 @@ const RandomQuiz = ({navigation}) => {
   const nextItem = () => {
     const num = itemNo + 1
     setItemNo(num)
-    setChoice1(object_questions[num].choice1);
-    setChoice2(object_questions[num].choice2);
-    setChoice3(object_questions[num].choice3);
-    setChoice4(object_questions[num].choice4);
-    setAnswer(object_questions[num].answer);
-    setQuestion(object_questions[num].question_object)
+    setChoice1(random_questions[num].choice1);
+    setChoice2(random_questions[num].choice2);
+    setChoice3(random_questions[num].choice3);
+    setChoice4(random_questions[num].choice4);
+    setAnswer(random_questions[num].answer);
+    setQuestion(random_questions[num].question_object)
   }
 
   const selectedAns = (ans) =>{
@@ -186,7 +179,7 @@ const RandomQuiz = ({navigation}) => {
 
         </View>
         <View style={styles.object_title}>
-            <Text style={styles.object_text}>{object_questions[itemNo].question_object}</Text>
+            <Text style={styles.object_text}>{random_questions[itemNo].question_object}</Text>
         </View>
         <View style={[styles.choices,{width:'95%'}]}>
 
@@ -213,7 +206,7 @@ const RandomQuiz = ({navigation}) => {
           
          
         </View>
-        <View style={[styles.bottom_buttons_full, {height: 80}]}>
+        <View style={[styles.bottom_buttons_full_random, {height: 80}]}>
           {
             btn_action !== null &&
               <TouchableOpacity  onPress={() => {clickedBtn(next)}}
@@ -229,7 +222,7 @@ const RandomQuiz = ({navigation}) => {
                 }]} activeOpacity={0.7}>
                 <Text style={[styles.bottom_btn_text,{fontSize:20}]}>
                   {btnText}</Text>
-                <Entypo name='chevron-right' style={[styles.bottom_arr_icon,{fontSize:35,position:'absolute',right:25}]}/>
+                
                   
               </TouchableOpacity> 
           

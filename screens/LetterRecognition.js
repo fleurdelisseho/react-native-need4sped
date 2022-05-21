@@ -1,13 +1,10 @@
-import { View, Text, useWindowDimensions, StatusBar,StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { View, Text, useWindowDimensions, StatusBar,TouchableOpacity, Image } from 'react-native'
 
-import  colors  from '../assets/styles/Styles'
 import { LinearGradient } from 'expo-linear-gradient';
 import {styles} from '../assets/styles/Styles'
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import React, { useState, useEffect, useRef}  from 'react'
+import React, { useState, useRef}  from 'react'
 import {letter_recognition} from '../database/letter_recognition';
-import SignatureScreen from "react-native-signature-canvas";
-import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 const LetterRecognition = ({navigation,text}) => {
   const ref = useRef();
@@ -203,7 +200,7 @@ const style = `.m-signature-pad {box-shadow: none; border: none; }
           </View>
 
         </View>
-        <View style={styles.center_box}>
+        <View style={styles.center_box_exercises}>
            {
              isCorrect &&
              <>
@@ -218,13 +215,13 @@ const style = `.m-signature-pad {box-shadow: none; border: none; }
               <Text style={[styles.box_title,{color:'#000', fontFamily:'mon_semibold', fontSize:12, top:55}]}>Can you try that again?</Text>
             </>
             }
-            <View style={styles.box_content}>
+            <View style={styles.box_content_exer}>
               {/* if correct */}
-              {isCorrect &&  <Image source={require('../assets/images/abc/correct.png')} style={[styles.box_value_img,{width:'80%',marginTop:40}]}/> }
+              {isCorrect &&  <Image source={require('../assets/images/abc/correct.png')} style={[styles.box_value_img,{width:'50%',marginTop:50}]}/> }
               {/* if wrong */}
-             { isCorrect === false && <Image source={require('../assets/images/abc/wrong.png')} style={[styles.box_value_img,{width:'80%',marginTop:40}]}/> }
+             { isCorrect === false && <Image source={require('../assets/images/abc/wrong.png')} style={[styles.box_value_img,{width:'50%',marginTp:50}]}/> }
 
-             { isCorrect === null && <Image source={question} style={[styles.box_value_img,{width:'95%', marginTop:0}]}/>}
+             { isCorrect === null && <Image source={question} style={[styles.box_value_img,{width:'70%', marginTop:0}]}/>}
             </View>
         </View>
         <View style={styles.choices}>
@@ -325,8 +322,8 @@ const style = `.m-signature-pad {box-shadow: none; border: none; }
 
 
         </View>
-        <View style={styles.bottom_buttons_full}>
-            <TouchableOpacity onPress={() => actionButton()} style={[styles.bottom_btn,styles.bottom_btn_full,{backgroundColor:'#'+backColor}]} activeOpacity={0.7}>
+        <View style={styles.bottom_buttons_full_letterRecognition}>
+            <TouchableOpacity onPress={() => actionButton()} style={[styles.bottom_btn,styles.bottom_btn__full_letterRecognition,{backgroundColor:'#'+backColor}]} activeOpacity={0.7}>
               <Text style={styles.bottom_btn_text}>{btnText}</Text>
             </TouchableOpacity> 
         </View>
