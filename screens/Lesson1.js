@@ -23,7 +23,7 @@ const Lesson1 = ({navigation}) => {
         <Image source={require('../assets/images/lesson1b.png')} style={[styles.lesson_img2]}/>
       <View style={[styles.main,styles.complete_con,{width, paddingBottom:30}]}>
       
-      <View style={{justifyContent:'center',alignItems:'center'}}>
+      <View style={{justifyContent:'center',alignItems:'center',marginTop:-30}}>
           <Text style={{
             fontFamily:'mon_bold', 
             color:'#fff', 

@@ -56,24 +56,24 @@ export const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       width: '100%',
-      paddingHorizontal: 40,
+      paddingHorizontal: 20,
       paddingTop: 50,
       alignItems: 'center',
     },
     
     body:{
-      paddingHorizontal: 30,
+      paddingHorizontal: 20,
     },
     reg_text: {
       color: colors.white,
       fontFamily: 'mulish_regular',
-      fontSize: 20,
+      fontSize: 18,
       letterSpacing:1,
     },
     primary_text: {
       color: colors.white,
       fontFamily: 'opensans_xbold',
-      fontSize: 30,
+      fontSize: 26,
       letterSpacing:1,
     },
     user_con: {
@@ -121,9 +121,9 @@ export const styles = StyleSheet.create({
       backgroundColor:'#5D3DE5',
     },
     dashboard: {
-      width: 148,
-      height: 200,
-      padding: 18,
+      width: 132,
+      height: 180,
+      padding: 15,
     },
     dashboard_full: {
       marginBottom: 18,
@@ -176,14 +176,26 @@ export const styles = StyleSheet.create({
       transform: [{scale: 1.20}],
   
     },
-    dashboard_img_left: {
-      width: 140,
+    dashboard_img_left_1: {
+      width: 135,
       position: 'absolute',
-      height: 125,
+      height: 135,
       resizeMode: 'contain',
       zIndex:1,
       left:4,
-      top:-8,
+      top:-12,
+      transform: [{scale: 1.08}],
+  
+    },
+    dashboard_img_left: {
+      width: 120,
+      position: 'absolute',
+      height: 135
+      ,
+      resizeMode: 'contain',
+      zIndex:1,
+      left:4,
+      top:-12,
       transform: [{scale: 1.08}],
   
     },
@@ -326,6 +338,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent:'space-between',
         display: 'flex',
+        marginBottom:5,
     },
     right_navbtns: {
         flexDirection: 'row',
@@ -361,8 +374,7 @@ export const styles = StyleSheet.create({
       backgroundColor: colors.white,
       width: '90%',
       alignContent:'center',
-      height: 320,
-      padding: 20,
+      height: 300,
       borderRadius: 20,
       position:'relative',
       shadowColor: '#000',
@@ -370,6 +382,7 @@ export const styles = StyleSheet.create({
         shadowOpacity:  10,
         textShadowRadius: 10,
         elevation: 6,
+        marginTop:20,
     },
     box_title:{
       position: 'absolute',
@@ -380,10 +393,10 @@ export const styles = StyleSheet.create({
     },
     box_content: {
       // backgroundColor: 'grey',
-      width:'100%',
+      width:'80%',
       justifyContent:'center',
       alignItems: 'center',
-      height: 200,
+      height: 180,
       padding: 0,
     },
     box_value: {
@@ -411,19 +424,27 @@ export const styles = StyleSheet.create({
 
     box_value_img: {
       resizeMode: 'contain',
-      width: '90%',
-      marginTop: 15,
+      width: '100%',
+      marginTop: 10,
+    },
+
+    tracing_img: {
+      resizeMode: 'contain',
+      width: '140%',
+      marginLeft:0,
+      
     },
     bottom_buttons: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
       width: '100%',
+      marginTop:20
     },
     bottom_buttons_full:{
       alignItems: 'center',
       justifyContent: 'space-between',
-      width: '100%',
+      width: '80%',
     },
     bottom_btn:{
       backgroundColor:'#383660',
@@ -432,8 +453,7 @@ export const styles = StyleSheet.create({
         shadowOpacity:  10,
         textShadowRadius: 10,
         elevation: 6,
-      width: '65%',
-      paddingLeft: 5,
+      width: '50%',
       justifyContent: 'center',
       alignItems:'center',
       paddingVertical: 15,
@@ -448,7 +468,7 @@ export const styles = StyleSheet.create({
     bottom_btn_text:{
       color: '#fff',
       fontFamily: 'mulish_semibold',
-      fontSize: 18,
+      fontSize: 15,
       letterSpacing:1,
     },
     bottom_arr_icon:{
@@ -481,17 +501,17 @@ export const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       flexWrap:'wrap',
-      width: '90%',
+      width: '80%',
     },
     btnchoice: {
       backgroundColor: 'white',
       borderRadius: 20,
       padding:10,
       width: '30%',
-      height: 95,
+      height: 70,
       justifyContent: 'center',
       alignItems: 'center',
-      marginBottom:15,
+      marginTop:15,
     },
     choice_img:{
       width:47,
@@ -502,11 +522,12 @@ export const styles = StyleSheet.create({
 
     object_title: {
       backgroundColor: '#383660',
-      width: '70%',
-      paddingVertical:20,
+      width: '60%',
+      paddingVertical:15,
       justifyContent:'center',
       alignItems:'center',
-      borderRadius:20,
+      borderRadius:15,
+      marginBottom: 15,
     },
     object_text:{
       color:'white',
@@ -720,16 +741,16 @@ export const styles = StyleSheet.create({
     lesson_img1:{
       width:'100%',
       opacity: .9,
-      top: -50,
+      top: -280,
       position: 'absolute',
     },
     lesson_img2:{
       width:'100%',
-      top: -50,
+      top: -280,
       position: 'absolute',
     },
     lesson_img:{
-      width:'82%',
+      width:'60%',
       resizeMode:'contain',
       marginTop:'-50%',
     }

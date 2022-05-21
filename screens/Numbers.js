@@ -1,42 +1,46 @@
-import { View, Text, useWindowDimensions, StatusBar,StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { View, Text, useWindowDimensions, StatusBar,TouchableOpacity, Image } from 'react-native'
 
-import  colors  from '../assets/styles/Styles'
-import { LinearGradient } from 'expo-linear-gradient';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {styles} from '../assets/styles/Styles'
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import React, { useState, useEffect }  from 'react'
+import React, { useState }  from 'react'
 
 import {numbers} from '../database/number';
-
 
 
 const Numbers = ({navigation}) => {
 
   const [bg, setBg] = useState('white');
   const [iconColor, setIconColor] = useState('black');
-  const [box_value_change, setCol] = useState('');
+  const [box_value_change, setCol] = useState('number_colored');
+// Called after ref.current.readSignature() reads a non-empty base64 string
+const handleOK = (signature) => {
+  console.log(signature);
+  onOK(signature); // Callback from Component props
+};
 
+// Called after ref.current.readSignature() reads an empty string
+const handleEmpty = () => {
+  console.log("Empty");
+};
 
-  
-  const onPress = () =>{
-  if(bg == 'white'){
-      setBg('#EE2D7B');
-      setIconColor('white');
-      setCol({
-        color: '#fff',
-        textShadowColor: 'black', 
-        textShadowRadius: 5, 
-        textShadowOffset: {width: 1, height: 1},
-        top: 0, left: 0, right: 0, bottom: 0
-      });
-    }else{
-      setBg('white');
-      setIconColor('black');
-      setCol('');
-    }
-    
-  }
+// Called after ref.current.clearSignature()
+const handleClear = () => {
+  console.log("clear success!");
+};
+
+// Called after end of stroke
+const handleEnd = () => {
+  ref.current.readSignature();
+};
+
+// Called after ref.current.getData()
+const handleData = (data) => {
+  console.log(data);
+};
+
+  const imgWidth = 300;
+  const imgHeight = 300;
 
   const [bg2, setBg2] = useState('white');
   const [iconColor2, setIconColor2] = useState('black');
@@ -70,21 +74,7 @@ const Numbers = ({navigation}) => {
   const [buttontext, setButtonText] =useState('Word Card');
   const [showtitle, setShowTitle] = useState(0);
   
-  const [number, setNumber] = useState(0);
-
-  const numLimit = numbers.length-1; 
-
-  const [changed, setChange] = useState(
-    ()=>{
-      setBoxContent('none');
-      setShowLetter('flex');
-      setButtonText('Word Card')
-      setShowTitle(0);
-    }
-  )
-
-
-
+ 
   const Change = () =>{
     if(imgshow == 'none'){
       setBoxContent('flex');
@@ -98,26 +88,59 @@ const Numbers = ({navigation}) => {
       setShowTitle(0);
     }
   }
+  const {width}= useWindowDimensions();
 
-  const nextNum = () => {
-    if(number < numLimit){
-      setNumber(number+1);
-        
-    }else{
-      navigation.navigate('Home')
-    }
+  const [number, setNumber] = useState(0);
+
+  const numLimit = numbers.length-1; 
+
+  const [changed, setChange] = useState(
+    ()=>{
       setBoxContent('none');
       setShowLetter('flex');
       setButtonText('Word Card')
       setShowTitle(0);
-  }
-  const prevNum = () => {
-    if(number >0 ){ 
-      setNumber(number-1);
-      changed
-    }else{
-      navigation.navigate('Home')
     }
+  )
+
+  const [number_image, setLetterImage] = useState(
+    numbers[number].number_colored
+  )
+
+  const onPress = () =>{
+    if(bg == 'white'){
+        setBg('#EE2D7B');
+        setIconColor('white');
+        setLetterImage(numbers[number].number_trace)
+      }else{
+        setBg('white');
+        setIconColor('black');
+        setLetterImage(numbers[number].number_colored)
+      }
+      
+    }
+
+    const nextNum = () => {
+      if(number < numLimit){
+        setNumber(number+1);
+        setLetterImage(numbers[number+1].number_colored)
+          
+      }else{
+        navigation.navigate('Home')
+      }
+        setBoxContent('none');
+        setShowLetter('flex');
+        setButtonText('Word Card')
+        setShowTitle(0);
+    }
+    const prevNum = () => {
+      if(number >0 ){ 
+        setNumber(number-1);
+        setLetterImage(numbers[number-1].number_colored)
+        changed
+      }else{
+        navigation.navigate('Home')
+      }
 
     setBoxContent('none');
     setShowLetter('flex');
@@ -125,12 +148,6 @@ const Numbers = ({navigation}) => {
     setShowTitle(0);
     
   }
- 
-
-
-
-  const {width}= useWindowDimensions();
-
   
   return (
     <View style={[styles.container,{width}]}>
@@ -155,6 +172,12 @@ const Numbers = ({navigation}) => {
             }}/>
           </TouchableOpacity>
           <View style={styles.right_navbtns}>
+            <TouchableOpacity onPress={onPress} activeOpacity={0.7}  style={[styles.navbtn,{backgroundColor: bg}]} >
+              <Image source={require('../assets/images/pen.png')} style={[styles.btnicon, { resizeMode: 'contain', tintColor:iconColor}]}/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onPress2} activeOpacity={0.7}  style={[styles.navbtn,{backgroundColor:bg2}]}>
+              <Image source={require('../assets/images/edit.png')} style={[styles.btnicon, { resizeMode: 'contain', tintColor:iconColor2}]}/>
+            </TouchableOpacity>
             <TouchableOpacity   onPress={onPress3} activeOpacity={0.7}  style={[styles.navbtn,{backgroundColor:bg3}]}>
               <Image source={require('../assets/images/sound.png')} style={[styles.btnicon, { resizeMode: 'contain', tintColor:iconColor3}]}/>
             </TouchableOpacity>
@@ -164,10 +187,11 @@ const Numbers = ({navigation}) => {
         <View style={styles.center_box}>
             <Text style={[styles.box_title,{opacity:showtitle}]}>{numbers[number].num_letter}</Text>
             <View style={styles.box_content}>
-              <Text style={[styles.box_value,{display:showletter},box_value_change ]}>{numbers[number].num}</Text>
+              <Image source={number_image} style={[styles.tracing_img,{display:showletter},box_value_change]}/>
               <Image source={numbers[number].image} style={[styles.box_value_img,{display:imgshow}]}/>
             </View>
         </View>
+        
         <View style={styles.bottom_buttons}>
            <TouchableOpacity onPress={() => prevNum() } activeOpacity={0.7}>
               <Entypo name='chevron-left' style={styles.bottom_arr_icon}/>

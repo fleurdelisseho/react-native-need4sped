@@ -2,7 +2,6 @@ import { View, Text, useWindowDimensions, StatusBar,StyleSheet, ScrollView, Touc
 
 import  colors  from '../assets/styles/Styles'
 import { LinearGradient } from 'expo-linear-gradient';
-import Entypo from 'react-native-vector-icons/Entypo';
 import {styles} from '../assets/styles/Styles'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import React, { useState, useEffect, useRef}  from 'react'
@@ -102,7 +101,7 @@ const style = `.m-signature-pad {box-shadow: none; border: none; }
               width: ${imgWidth}px; height: ${imgHeight}px;}`;
   
 
-  const [question, setQuestion] = useState(letter_recognition[itemNo].question_letter);
+  const [question,setQuestion] = useState(letter_recognition[itemNo].question_letter);
   const [choice1, setChoice1] = useState(letter_recognition[itemNo].choice1);
   const [choice2, setChoice2] = useState(letter_recognition[itemNo].choice2);
   const [choice3, setChoice3] = useState(letter_recognition[itemNo].choice3);
@@ -115,9 +114,8 @@ const style = `.m-signature-pad {box-shadow: none; border: none; }
   const [chooseAnswer, setChooseAnswer] =  useState('');
 
   const [isCorrect,setIsCorrect] = useState(null);
-
   const [btnText, setBtnText] = useState('Submit');
- 
+
   const [backColor, setBackColor] = useState('E8545C');          
   const numLimit = letter_recognition.length-1;
   const nextItem = () => {
@@ -189,7 +187,7 @@ const style = `.m-signature-pad {box-shadow: none; border: none; }
         <View style={[styles.circle,styles.circle7]}></View>
       </View> 
 
-      <View style={[styles.main,{width, paddingBottom:30}]}>
+      <View style={[styles.main,{width, paddingBottom:0}]}>
         <View style={styles.topnav}>
           <TouchableOpacity onPress={() => navigation.navigate('Home')} activeOpacity={0.7}>
             <AntDesign name='arrowleft' style={{

@@ -8,9 +8,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import React, { useState, useEffect }  from 'react'
 import {object_questions} from '../database/objects';
 
-
-
-
 const ObjectRecognition = ({navigation}) => {
 
   const [bg, setBg] = useState('white');
@@ -153,8 +150,6 @@ const ObjectRecognition = ({navigation}) => {
     setWrongAns('');
   }
 
-  
-
   return (
     <View style={[styles.container,{width}]}>
       <StatusBar  backgroundColor={'transparent'} translucent={true}  />
@@ -169,7 +164,7 @@ const ObjectRecognition = ({navigation}) => {
         <View style={[styles.circle,styles.circle7]}></View>
       </View> 
 
-      <View style={[styles.main,{width, paddingBottom:30}]}>
+      <View style={[styles.main,{width}]}>
         <View style={styles.topnav}>
           <TouchableOpacity onPress={() => navigation.navigate('Home')} activeOpacity={0.7}>
             <AntDesign name='arrowleft' style={{
@@ -188,7 +183,7 @@ const ObjectRecognition = ({navigation}) => {
         <View style={styles.object_title}>
             <Text style={styles.object_text}>{object_questions[itemNo].question_object}</Text>
         </View>
-        <View style={[styles.choices,{width:'95%'}]}>
+        <View style={[styles.choices,{width:'100%'}]}>
 
           {/* If correct */}
           <TouchableOpacity onPress={()=>selectedAns('1')}   activeOpacity={0.7}  style={[styles.btnchoice,{width:'47%',height:145, 
@@ -221,7 +216,7 @@ const ObjectRecognition = ({navigation}) => {
                   styles.bottom_btn,
                   styles.bottom_btn_full,
                   {alignItems:'center',
-                  width:'95%', 
+                  width:'100%', 
                   flexDirection:'row',
                   justifyContent:'center',
                   paddingVertical:20,
@@ -229,7 +224,7 @@ const ObjectRecognition = ({navigation}) => {
                 }]} activeOpacity={0.7}>
                 <Text style={[styles.bottom_btn_text,{fontSize:20}]}>
                   {btnText}</Text>
-                <Entypo name='chevron-right' style={[styles.bottom_arr_icon,{fontSize:35,position:'absolute',right:25}]}/>
+              
                   
               </TouchableOpacity> 
           

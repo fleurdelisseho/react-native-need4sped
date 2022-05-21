@@ -46,8 +46,8 @@ const Home = ({navigation}) => {
      
         <View style={styles.home_header}>
             <View style={styles.greeting}> 
-              <Text style={styles.reg_text}>Hello,</Text>
-              <Text style={styles.primary_text}>Michael</Text>
+              <Text style={styles.reg_text}>Need4Sped</Text>
+              <Text style={styles.primary_text}>Welcome!</Text>
             </View>
             <TouchableOpacity 
               style={styles.user_con}
@@ -110,22 +110,22 @@ const Home = ({navigation}) => {
             <TouchableOpacity
                 activeOpacity={.7}
                 style={styles.btn_dashboard}
-                onPress={ () =>{soundClick(); navigation.navigate('Lesson1'); }}
+                onPress={ () =>{soundClick(); navigation.navigate('LetterRecognition'); }}
                 
               >
               <LinearGradient
                 style={styles.dashboard_full_width}  
                 colors={['#00D89C', '#017C1E']}
               >
-                <Image source={require('../assets/images/letter.png')} style={[styles.dashboard_img_left, { resizeMode: 'contain'}]}/>
+                <Image source={require('../assets/images/letter.png')} style={[styles.dashboard_img_left_1, { resizeMode: 'contain'}]}/>
                 
                 <View style={styles.right_texts}>
                     <Text style={styles.right_title}>Letter Recognition</Text>
-                    <Text style={styles.right_description}>Match the corresponding lowercase letter of the given uppercase letter.</Text>
-                    <Text style={styles.status}>Completed 100%</Text>
+                    <Text style={styles.right_description}>Match the given uppercase letter to its correct lowercase letter.</Text>
+                    {/* <Text style={styles.status}>Completed 100%</Text>
                     <View style={styles.bar}>
                       <View style={[styles.barstat,styles.barstat100]}></View>
-                    </View>
+                    </View> */}
                 </View>
               </LinearGradient>
               
@@ -137,21 +137,21 @@ const Home = ({navigation}) => {
             <TouchableOpacity
                 activeOpacity={.7}
                 style={styles.btn_dashboard}
-                onPress={ () =>{soundClick(); navigation.navigate('Lesson2'); }}
+                onPress={ () =>{soundClick(); navigation.navigate('ObjectRecognition'); }}
               >
               <LinearGradient
                 style={styles.dashboard_full_width}  
                 colors={['#FB9193', '#EF307C']}
               >
-                <Image source={require('../assets/images/object.png')} style={[styles.dashboard_img_left, { resizeMode: 'contain'}]}/>
+                <Image source={require('../assets/images/object.png')} style={[styles.dashboard_img_left_1, { resizeMode: 'contain'}]}/>
                 
                 <View style={styles.right_texts}>
                     <Text style={styles.right_title}>Object Recognition</Text>
                     <Text style={styles.right_description}>Identify and click the correct picture of the object written.</Text>
-                    <Text style={styles.status}>Completed 75%</Text>
+                    {/* <Text style={styles.status}>Completed 75%</Text>
                     <View style={styles.bar}>
                       <View style={[styles.barstat,styles.barstat75]}></View>
-                    </View>
+                    </View> */}
                 </View>
               </LinearGradient>
               
@@ -159,26 +159,53 @@ const Home = ({navigation}) => {
 
           </View>
 
-          <View style={[styles.dashboard_full,{marginBottom:50}]}>
+          <View style={[styles.dashboard_full]}>
             <TouchableOpacity
                 activeOpacity={.7}
                 style={styles.btn_dashboard}
-                onPress={ () =>{soundClick(); navigation.navigate('Lesson3'); }}
+                onPress={ () =>{soundClick(); navigation.navigate('CountingObjects'); }}
                 
               >
               <LinearGradient
                 style={styles.dashboard_full_width}  
                 colors={['#FEEE77', '#FF9C07']}
               >
-                <Image source={require('../assets/images/1234.png')} style={[styles.dashboard_img_left, { resizeMode: 'contain'}]}/>
+                <Image source={require('../assets/images/lesson3.png')} style={[styles.dashboard_img_left, { resizeMode: 'contain'}]}/>
                 
                 <View style={styles.right_texts}>
                     <Text style={styles.right_title}>Counting Objects</Text>
                     <Text style={styles.right_description}>Count the number of objects and click the corresponding number.</Text>
-                    <Text style={styles.status}>Completed 50%</Text>
+                    {/* <Text style={styles.status}>Completed 50%</Text>
                     <View style={styles.bar}>
                       <View style={[styles.barstat,styles.barstat50]}></View>
-                    </View>
+                    </View> */}
+                </View>
+              </LinearGradient>
+              
+            </TouchableOpacity>
+
+          </View>
+
+          <View style={[styles.dashboard_full,{marginBottom:20}]}>
+            <TouchableOpacity
+                activeOpacity={.7}
+                style={styles.btn_dashboard}
+                onPress={ () =>{soundClick(); navigation.navigate('RandomQuiz'); }}
+                
+              >
+              <LinearGradient
+                style={styles.dashboard_full_width}  
+                colors={['#37FFF3', '#0085FF']}
+              >
+                <Image source={require('../assets/images/1234.png')} style={[styles.dashboard_img_left, { resizeMode: 'contain'}]}/>
+                
+                <View style={styles.right_texts}>
+                    <Text style={styles.right_title}>Random Quiz</Text>
+                    <Text style={styles.right_description}>A combination of the previous exercises to test your overall knowledge.</Text>
+                    {/* <Text style={styles.status}>Completed 50%</Text>
+                    <View style={styles.bar}>
+                      <View style={[styles.barstat,styles.barstat50]}></View>
+                    </View> */}
                 </View>
               </LinearGradient>
               
