@@ -229,6 +229,7 @@ const ObjectRecognition = ({navigation}) => {
       </View>
 
     </View>
+    
   )
 }
 
